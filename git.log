@@ -73,4 +73,24 @@ git add .gitignore
 git commit -m 'update files to ignore'
 
 git checkout feature/b
+git rebase master
+
+git checkout -b feature/c
+vi helloWorld.sh 
+# make changes
+git add helloWorld.sh
+git commit -m 'implement feature c'
+git checkout master
+vi .gitignore 
+git add .gitignore 
+git commit -m 'add .settings'
+git checkout feature/c
+git checkout -b hotfix
+git branch
+vi helloWorld.sh 
+# make changes
+git add helloWorld.sh 
+git commit -m 'hotfix implemented'
+git rebase --onto master feature/c hotfix
+
 
