@@ -37,6 +37,19 @@ git revert <commit>
 git reset <commit>
 git reset --hard <commit>
 
+git checkout -- .gitignore
+
+git branch feature/a
+git checkout feature/a
+
+vi helloWorld.sh
+#!/bin/bash 
+echo 'Hello, world!'
+#eof
+
+git add helloWorld.sh 
+git commit -m 'add shell script'
+
 
 
 
