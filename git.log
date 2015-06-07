@@ -40,6 +40,7 @@ git reset --hard <commit>
 git checkout -- .gitignore
 
 git branch feature/a
+git branch
 git checkout feature/a
 
 vi helloWorld.sh
