@@ -1,0 +1,42 @@
+git help -a
+git help config
+
+git config user.name "Vorname Nachname"
+git config user.email "name@example.com"
+
+cd /Users/tf/git/git-course-examples
+git init
+
+echo 'Hello, world' > README
+git add .
+git commit 
+
+vi README
+# ! hinzufügen
+git status
+git add README
+git commit -m 'Fixed'
+git log
+
+vi .gitignore
+# .project
+#
+git add .gitignore 
+git commit -m 'add gitignore'
+echo 'foo' > .project
+git status
+
+vi README
+# make a silly change
+git add README 
+git commit -m 'silly change'
+git log --oneline
+git revert HEAD
+git revert <commit>
+
+git reset <commit>
+git reset --hard <commit>
+
+
+
+
