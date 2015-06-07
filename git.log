@@ -60,3 +60,17 @@ git checkout master
 git merge feature/a
 git branch -D feature/a
 
+git checkout -b feature/b
+vi helloWorld.sh
+# make changes
+git add helloWorld.sh 
+git commit -m 'implement feature b'
+
+git checkout master
+vi .gitignore
+# make changes
+git add .gitignore
+git commit -m 'update files to ignore'
+
+git checkout feature/b
+
