@@ -51,6 +51,10 @@ echo 'Hello, world!'
 git add helloWorld.sh 
 git commit -m 'add shell script'
 
+git checkout -b crazy-experiment
+git checkout feature/a
+git branch -d crazy-experiment
+git branch -D crazy-experiment
 
 
 
