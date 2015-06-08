@@ -96,5 +96,9 @@ git rebase --onto master feature/c hotfix
 git tag -a v0.1 -m 'a nice fix'
 git describe --contains <commit>
 
+git remote -v
+git remote add origin https://github.com/tfr42/git-course-examples.git
+git remote add local_fs file:///home/user/git-course-examples.git
+
 
 
