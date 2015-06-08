@@ -93,4 +93,8 @@ git add helloWorld.sh
 git commit -m 'hotfix implemented'
 git rebase --onto master feature/c hotfix
 
+git tag -a v0.1 -m 'a nice fix'
+git describe --contains <commit>
+
+
 
