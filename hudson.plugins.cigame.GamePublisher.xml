@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<hudson.plugins.cigame.GameDescriptor plugin="ci-game@1.22">
+<hudson.plugins.cigame.GameDescriptor plugin="ci-game@1.24">
   <namesAreCaseSensitive>true</namesAreCaseSensitive>
   <passedTestIncreasingPoints>1</passedTestIncreasingPoints>
   <passedTestDecreasingPoints>0</passedTestDecreasingPoints>
