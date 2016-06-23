@@ -1,0 +1,32 @@
+version: '2'
+services:
+  jenkins:
+    image: jenkins:latest
+    depends_on:
+      - nexus
+      - gitlab
+    ports:
+       - 8082:8080
+#    volumes:
+#      - ./httpd/httpd.conf:/usr/local/apache2/conf/httpd.conf
+    links:
+      - nexus
+      - gitlab
+  nexus:
+    image: sonatype/nexus:oss
+#    volumes:
+#      - ./tomcat/server.xml:/usr/local/tomcat/conf/server.xml:ro
+    ports:
+      - 8081:8081
+#    environment:
+#      - JAVA_OPTS=-verbose:gc -XX:+UseParallelGC -Xms1g -Xmx1g -XX:+PrintFlagsFinal
+  gitlab:
+      image: gitlab/gitlab-ce
+#      volumes:
+#         - /srv/gitlab/config:/etc/gitlab
+#         - /srv/gitlab/data:/var/opt/gitlab
+#         - /srv/gitlab/logs:/var/log/gitlab
+      ports:
+        - "8083:80"
+        - "8443:443"
+        - "8022:22"
