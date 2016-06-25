@@ -10,7 +10,7 @@ Using the official image from https://hub.docker.com/r/sonatype/nexus/:
 
     $ docker pull sonatype/nexus
 
-## gitLab
+## gitlab
 Using the offical image from https://hub.docker.com/r/gitlab/gitlab-ce/:
 
     $ docker pull gitlab/gitlab-ce
@@ -27,7 +27,7 @@ http://192.168.99.100:8082/
 ### Nexus OSS
 http://192.168.99.100:8081/
 
-### gitLab
+### gitlab
 http://192.168.99.100:8083/
 
 ## How to stop the services

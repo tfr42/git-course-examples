@@ -7,15 +7,15 @@ services:
       - gitlab
     ports:
        - 8082:8080
-#    volumes:
-#      - ./httpd/httpd.conf:/usr/local/apache2/conf/httpd.conf
+    volumes:
+      - ./jenkins/config/settings.xml:/var/jenkins_home/settings.xml
     links:
       - nexus
       - gitlab
   nexus:
     image: sonatype/nexus:oss
-#    volumes:
-#      - ./tomcat/server.xml:/usr/local/tomcat/conf/server.xml:ro
+    volumes:
+      - ./nexus/volumes:/usr/local/tomcat/conf/server.xml
     ports:
       - 8081:8081
 #    environment:
