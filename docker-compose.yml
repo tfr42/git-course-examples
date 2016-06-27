@@ -22,10 +22,10 @@ services:
 #      - JAVA_OPTS=-verbose:gc -XX:+UseParallelGC -Xms1g -Xmx1g -XX:+PrintFlagsFinal
   gitlab:
       image: gitlab/gitlab-ce
-#      volumes:
-#         - /srv/gitlab/config:/etc/gitlab
-#         - /srv/gitlab/data:/var/opt/gitlab
-#         - /srv/gitlab/logs:/var/log/gitlab
+      volumes:
+        - ./gitlab/volumes/config:/etc/gitlab
+        - ./gitlab/volumes/data:/var/opt/gitlab
+        - ./gitlab/volumes/logs:/var/log/gitlab
       ports:
         - "8083:80"
         - "8443:443"
