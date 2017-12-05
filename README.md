@@ -17,20 +17,24 @@ Using the offical image from https://hub.docker.com/r/gitlab/gitlab-ce/:
 
 ## How to start the infrastructure
 
-    $ docker-compose up jenkins
+    $ docker-compose up -d
 
 ## How to access the services
 
-### Jenkins
-http://192.168.99.100:8082/
+Depending on the Operating System and Docker integration the IP may differ.
+
+### Jenkins CI
+http://localhost:8082/
 
 ### Nexus OSS
-http://192.168.99.100:8081/
+http://localhost:8081/nexus
 
-### gitlab
-http://192.168.99.100:8083/
+### gitlab CE
+http://localhost:8083/
+
+### Sonarqube
+http://localhost:9090/
 
 ## How to stop the services
 
-    $ docker-compose stop jenkins
-    
+    $ docker-compose stop
