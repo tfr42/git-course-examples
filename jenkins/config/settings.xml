@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <settings xmlns="http://maven.apache.org/SETTINGS/1.1.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.1.0
-http://maven.apache.org/xsd/settings-1.1.0.xsd">
+	xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.1.0 http://maven.apache.org/xsd/settings-1.1.0.xsd">
 	<servers>
 		<server>
 			<id>nexus-snapshots</id>
@@ -23,7 +22,7 @@ http://maven.apache.org/xsd/settings-1.1.0.xsd">
 			<!--
 			<url>http://${NEXUS_PORT_8081_TCP_ADDR}:${NEXUS_PORT_8081_TCP_PORT}/nexus/content/groups/public/</url>
 			-->
-			<url>http://192.168.99.100:8081/content/groups/public/</url>
+			<url>http://nexus:8081/nexus/content/groups/public/</url>
 		</mirror>
 	</mirrors>
 	<profiles>
