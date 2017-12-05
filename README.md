@@ -1,3 +1,15 @@
+# Example Project for demonstration purposes only. Showing the integration of Maven with Jenkins, git and Nexus.
+
+## Branches
+|| Branch || Description ||
+| master
+| develop
+| hotfix
+| docker-infrastructure
+
+## How to work with git:
+
+```
 git help -a
 git help config
 
@@ -104,6 +116,4 @@ git fetch
 git pull
 
 git push 
-
-
-
+```
