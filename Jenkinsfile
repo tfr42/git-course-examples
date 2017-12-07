@@ -19,7 +19,7 @@ pipeline {
         stage('Build') {
             steps {
                echo 'running Maven'
-               sh 'mvn -B -C clean install'
+               sh 'mvn -B -C -s $JENKINS_HOME/settings.xml clean install'
             }
             post {
                 success {
