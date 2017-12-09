@@ -19,13 +19,15 @@ pipeline {
         stage('Build') {
             steps {
                echo 'running Maven'
-               sh 'mvn -B -C -s $JENKINS_HOME/settings.xml clean install'
+               sh 'mvn -B -C -fae -s $JENKINS_HOME/settings.xml clean install'
             }
             post {
-                success {
+                always {
                     junit 'target/surefire-reports/**/*.xml'
                 }
-            }
+                success {
+                    archive 'target/*.jar'
+}            }
         }
     }
 }
