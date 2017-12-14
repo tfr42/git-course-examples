@@ -4,11 +4,14 @@
   <groupId>net.gfu.seminar.ci</groupId>
   <artifactId>helloWorld</artifactId>
   <version>1.0.0-SNAPSHOT</version>
-  <name>helloWorld</name>
+  <name>helloworld</name>
+  <description>Maven : HelloWorld Sample :: Docker</description>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
+    <main.class>net.gfu.seminar.ci.App</main.class>
+    <image.user>tfr42</image.user>
   </properties>
   <scm>
     <connection>scm:git:http://localhost:8083/tf/helloWorld.git</connection>
@@ -33,6 +36,36 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-release-plugin</artifactId>
         <version>2.5.3</version>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>findbugs-maven-plugin</artifactId>
+        <version>3.0.5</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.0.2</version>
+        <configuration>
+          <archive>
+            <manifest>
+              <mainClass>${main.class}</mainClass>
+            </manifest>
+          </archive>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>1.4.0</version>
+        <configuration>
+          <mainClass>${main.class}</mainClass>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>io.fabric8</groupId>
+        <artifactId>fabric8-maven-plugin</artifactId>
+        <version>3.5.33</version>
       </plugin>
     </plugins>
   </build>
