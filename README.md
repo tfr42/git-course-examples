@@ -1,7 +1,11 @@
-# How to create a simple Maven project 
+# How to build the Docker image
 
 ```
-mvn archetype:generate -DgroupId=net.gfu.seminar.ci -DartifactId=helloWorld -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
-git remote add gitlab http://localhost:8083/tf/helloWorld.git
-git push -u gitlab develop:master 
+mvn clean install fabric8:build 
 ```
+
+# How to run a Docker Container based on the Docker Image
+
+```
+docker run --rm ci/helloworld:latest
+``` 
