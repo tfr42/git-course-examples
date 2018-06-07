@@ -18,4 +18,10 @@ public class AppTest
         App.main(null);
         assertTrue( true );
     }
+
+    @Test
+    public void testFailed()
+    {
+        assertTrue( false );
+    }
 }
