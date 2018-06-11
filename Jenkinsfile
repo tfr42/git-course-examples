@@ -2,40 +2,36 @@ pipeline {
     agent any
 
     stages {
-        stage('Build') {
+        stage ('Build') {
             steps {
                 echo 'Building...'
                 sh './helloWorld.sh'
             }
         }
-        stage('Integration Test') {
+        stage ('Integration Test') {
             steps {
                 echo 'Testing...'
             }
         }
-        stage('Quality Checks') {
+        stage ('Quality Checks') {
             steps {
                 echo 'Checking...'
             }
         }
-        stage('Release') {
+        stage ('Release') {
             steps {
                 echo 'Prepare release version...'
             }
         }
-        stage('Deploy FAT') {
+        stage ('Deploy FAT') {
             steps {
                 echo 'Deploying to FAT...'
-            }
-            steps {
                 echo 'Running automated tests'
             }
         }
-        stage('Deploy PROD') {
+        stage ('Deploy PROD') {
             steps {
                 echo 'Deploying to PROD...'
-            }
-            steps {
                 echo 'Running smoke tests...'
             }
         }
