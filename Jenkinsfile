@@ -1,5 +1,6 @@
 pipeline {
     agent any
+
     tools {
         maven 'Maven 3.5.3'
         jdk 'JDK 1.8'
@@ -19,17 +20,55 @@ pipeline {
         stage('Build') {
             steps {
                echo 'running Maven'
-               sh 'mvn -B -C -fae -s $JENKINS_HOME/settings.xml clean install site'
+               sh 'mvn -B -C -fae -s $JENKINS_HOME/settings.xml clean test'
             }
             post {
                 always {
                     junit 'target/surefire-reports/**/*.xml'
-                    cobertura autoUpdateHealth: false, autoUpdateStability: false, coberturaReportFile: '**/target/site/cobertura/coverage.xml', conditionalCoverageTargets: '70, 0, 0', failUnhealthy: false, failUnstable: false, lineCoverageTargets: '80, 0, 0', maxNumberOfBuilds: 0, methodCoverageTargets: '80, 0, 0', onlyStable: false, sourceEncoding: 'ASCII', zoomCoverageChart: false
-
                 }
+            }
+        }
+        stage('Integration Test') {
+            steps {
+                echo 'Testing...'
+                sh 'mvn -B -C -fae -s $JENKINS_HOME/settings.xml verify'
+            }
+        }
+        stage('Quality Checks') {
+            steps {
+                echo 'Checking...'
+                sh 'mvn -B -C -fae -s $JENKINS_HOME/settings.xml site'
+            }
+            post {
+                sucess {
+                    cobertura autoUpdateHealth: false, autoUpdateStability: false, coberturaReportFile: '**/target/site/cobertura/coverage.xml', conditionalCoverageTargets: '70, 0, 0', failUnhealthy: false, failUnstable: false, lineCoverageTargets: '80, 0, 0', maxNumberOfBuilds: 0, methodCoverageTargets: '80, 0, 0', onlyStable: false, sourceEncoding: 'ASCII', zoomCoverageChart: false
+                }
+            }
+        }
+        stage('Release') {
+            steps {
+                echo 'Prepare release version...'
+            }
+            post {
                 success {
                     archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
                 }
+            }
+        }
+        stage('Deploy FAT') {
+            steps {
+                echo 'Deploying to FAT...'
+            }
+            steps {
+                echo 'Running automated tests'
+            }
+        }
+        stage('Deploy PROD') {
+            steps {
+                echo 'Deploying to PROD...'
+            }
+            steps {
+                echo 'Running smoke tests...'
             }
         }
     }
