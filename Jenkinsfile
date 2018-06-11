@@ -31,7 +31,7 @@ pipeline {
         stage('Integration Test') {
             steps {
                 echo 'Testing...'
-                sh 'mvn -B -C -fae -s $JENKINS_HOME/settings.xml verify'
+                sh 'mvn -B -C -fae -s $JENKINS_HOME/settings.xml -Dunit-tests.skip=true verify'
             }
         }
         stage('Quality Checks') {
