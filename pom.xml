@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.gfu.seminar.ci</groupId>
   <artifactId>helloWorld</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
+  <version>1.0.1-SNAPSHOT</version>
   <name>helloworld</name>
   <description>Jenkinsfile HelloWorld Sample :: Deployment</description>
   <properties>
