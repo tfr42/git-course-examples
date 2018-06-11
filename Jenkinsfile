@@ -18,6 +18,11 @@ pipeline {
                 echo 'Checking...'
             }
         }
+        stage('Release') {
+            steps {
+                echo 'Prepare release version...'
+            }
+        }
         stage('Deploy FAT') {
             steps {
                 echo 'Deploying to FAT...'
