@@ -4,18 +4,34 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo 'Building..'
+                echo 'Building...'
                 sh './helloWorld.sh'
             }
         }
-        stage('Test') {
+        stage('Integration Test') {
             steps {
-                echo 'Testing..'
+                echo 'Testing...'
             }
         }
-        stage('Deploy') {
+        stage('Quality Checks') {
             steps {
-                echo 'Deploying....'
+                echo 'Checking...'
+            }
+        }
+        stage('Deploy FAT') {
+            steps {
+                echo 'Deploying to FAT...'
+            }
+            steps {
+                echo 'Running automated tests'
+            }
+        }
+        stage('Deploy PROD') {
+            steps {
+                echo 'Deploying to PROD...'
+            }
+            steps {
+                echo 'Running smoke tests...'
             }
         }
     }
