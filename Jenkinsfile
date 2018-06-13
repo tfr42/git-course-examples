@@ -46,8 +46,16 @@ pipeline {
             }
         }
         stage ('Release') {
+            when {
+                // check if branch is master
+                branch 'master'
+            }
+            agent { label 'docker' }
             steps {
                 echo 'Prepare release version...'
+
+                echo 'Build docker image...'
+                sh 'docker build -t seminar/helloworld:latest --build-arg jarfile=./target/helloWorld-1.0.0-SNAPSHOT.jar .'
             }
             post {
                 success {
@@ -56,12 +64,15 @@ pipeline {
             }
         }
         stage ('Deploy FAT') {
+            agent { label 'docker' }
             steps {
                 echo 'Deploying to FAT...'
+                sh 'docker run -p 48080:8080 --rm seminar/helloworld'
                 echo 'Running automated tests'
             }
         }
         stage ('Deploy PROD') {
+            agent { label 'aws' }
             steps {
                 echo 'Deploying to PROD...'
                 echo 'Running smoke tests...'
