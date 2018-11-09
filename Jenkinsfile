@@ -55,7 +55,7 @@ pipeline {
                 echo 'Prepare release version...'
 
                 echo 'Build docker image...'
-                sh 'docker build -t seminar/helloworld:latest --build-arg jarfile=./target/helloWorld-1.0.0-SNAPSHOT.jar .'
+                sh 'docker build -t seminar/helloworld:latest --build-arg jarfile=./target/helloWorld-1.0.1-SNAPSHOT.jar .'
             }
             post {
                 success {
@@ -64,6 +64,10 @@ pipeline {
             }
         }
         stage ('Deploy FAT') {
+            when {
+                // check if branch is master
+                branch 'master'
+            }
             agent { label 'docker' }
             steps {
                 echo 'Deploying to FAT...'
