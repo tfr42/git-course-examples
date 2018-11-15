@@ -15,6 +15,7 @@ pipeline {
                 sh 'mvn -version'
                 sh 'java -version'
                 sh 'git --version'
+                sh 'docker --version'
             }
         }
         stage ('Build') {
@@ -24,14 +25,19 @@ pipeline {
             }
             post {
                 always {
-                    junit 'target/surefire-reports/**/*.xml'
+                    junit 'target/surefire-reports/**/*Test.xml'
                 }
             }
         }
-        stage ('Integration Test') {
+        stage ('Integration Tests') {
             steps {
                 echo 'Testing...'
-                sh 'mvn -B -C -fae -s $JENKINS_HOME/settings.xml -Dunit-tests.skip=true verify'
+                sh 'mvn -B -C -fae -s $JENKINS_HOME/settings.xml -Dskip.unit.tests=true verify'
+            }
+            post {
+                always {
+                    junit 'target/failsafe-reports/**/*Test.xml'
+                }
             }
         }
         stage ('Quality Checks') {
@@ -42,6 +48,8 @@ pipeline {
             post {
                 success {
                     cobertura autoUpdateHealth: false, autoUpdateStability: false, coberturaReportFile: '**/target/site/cobertura/coverage.xml', conditionalCoverageTargets: '70, 0, 0', failUnhealthy: false, failUnstable: false, lineCoverageTargets: '80, 0, 0', maxNumberOfBuilds: 0, methodCoverageTargets: '80, 0, 0', onlyStable: false, sourceEncoding: 'ASCII', zoomCoverageChart: false
+                    dependencyCheckAnalyzer datadir: '', hintsFile: '', includeCsvReports: false, includeHtmlReports: false, includeJsonReports: false, includeVulnReports: false, isAutoupdateDisabled: false, outdir: '', scanpath: 'target/*.xml', skipOnScmChange: false, skipOnUpstreamChange: false, suppressionFile: '', zipExtensions: ''
+                    findbugs canComputeNew: false, defaultEncoding: '', excludePattern: '', healthy: '', includePattern: '', pattern: '**/findbugs.xml', unHealthy: ''
                 }
             }
         }
@@ -53,6 +61,9 @@ pipeline {
             agent { label 'docker' }
             steps {
                 echo 'Prepare release version...'
+                sh 'mvn clean release:prepare release:perform'
+                readMavenPom file: 'pom.xml'
+                echo '${pom.version}'
 
                 echo 'Build docker image...'
                 sh 'docker build -t seminar/helloworld:latest --build-arg jarfile=./target/helloWorld-1.0.1-SNAPSHOT.jar .'
