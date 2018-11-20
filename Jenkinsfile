@@ -62,7 +62,7 @@ pipeline {
             agent { label 'docker' }
             steps {
                 echo 'Prepare release version...'
-                sh 'mvn clean release:prepare release:perform'
+                sh 'mvn -B clean release:prepare release:perform'
                 readMavenPom file: 'pom.xml'
                 echo '${pom.version}'
 
