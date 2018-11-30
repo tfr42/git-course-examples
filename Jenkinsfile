@@ -88,6 +88,10 @@ pipeline {
             }
         }
         stage ('Deploy PROD') {
+            when {
+                // check if branch is master
+                branch 'master'
+            }
             agent { label 'aws' }
             steps {
                 echo 'Deploying to PROD...'
