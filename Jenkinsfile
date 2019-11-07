@@ -8,7 +8,7 @@ pipeline {
                 sh './helloWorld.sh'
             }
         }
-        stage ('Integration Test') {
+        stage ('Integration Tests') {
             steps {
                 echo 'Testing...'
             }
