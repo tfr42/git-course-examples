@@ -28,7 +28,7 @@ pipeline {
                 }
             }
         }
-        stage ('Integration Test') {
+        stage ('Integration Tests') {
             steps {
                 echo 'Testing...'
                 sh 'mvn -B -C -fae -s $JENKINS_HOME/settings.xml -Dunit-tests.skip=true verify'
