@@ -51,7 +51,6 @@ pipeline {
                     dependencyCheckAnalyzer datadir: '', hintsFile: '', includeCsvReports: false, includeHtmlReports: false, includeJsonReports: false, includeVulnReports: false, isAutoupdateDisabled: false, outdir: '', scanpath: 'target/*.xml', skipOnScmChange: false, skipOnUpstreamChange: false, suppressionFile: '', zipExtensions: ''
                     findbugs canComputeNew: false, defaultEncoding: '', excludePattern: '', healthy: '', includePattern: '', pattern: '**/findbugsXml.xml', unHealthy: ''
                 }
-
             }
         }
         stage ('Release') {
@@ -63,11 +62,10 @@ pipeline {
             steps {
                 echo 'Prepare release version...'
                 sh 'mvn -B clean release:prepare release:perform'
-                readMavenPom file: 'pom.xml'
-                echo '${pom.version}'
-
+                def pom_version = sh script: 'mvn help:evaluate -Dexpression=project.version -q -DforceStdout', returnStdout: true
+                echo '${pom_version}'
                 echo 'Build docker image...'
-                sh 'docker build -t seminar/helloworld:latest --build-arg jarfile=./target/helloWorld-1.0.1-SNAPSHOT.jar .'
+                sh 'docker build -t seminar/helloworld:latest --build-arg jarfile=./target/helloWorld-${pom_version}.jar .'
             }
             post {
                 success {
