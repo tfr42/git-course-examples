@@ -5,6 +5,10 @@ pipeline {
         maven 'maven-3.6'
         jdk 'jdk-8'
     }
+    environment {
+        pom_artifact = readMavenPom().getArtifactId()
+        pom_version = readMavenPom().getVersion()
+    }
     stages {
         stage ('Initialize') {
             steps {
@@ -62,7 +66,6 @@ pipeline {
             steps {
                 echo 'Prepare release version...'
                 sh 'mvn -B clean release:prepare release:perform'
-                def pom_version = sh script: 'mvn help:evaluate -Dexpression=project.version -q -DforceStdout'
                 echo '${pom_version}'
                 echo 'Build docker image...'
                 sh 'docker build -t seminar/helloworld:latest --build-arg jarfile=./target/helloWorld-${pom_version}.jar .'
