@@ -25,6 +25,7 @@ pipeline {
         stage ('Build') {
             steps {
                echo 'running Maven'
+               echo '${pom_version}'
                sh 'mvn -B -C -fae -s $JENKINS_HOME/settings.xml clean test'
             }
             post {
@@ -52,8 +53,7 @@ pipeline {
             post {
                 success {
                     cobertura autoUpdateHealth: false, autoUpdateStability: false, coberturaReportFile: '**/target/site/cobertura/coverage.xml', conditionalCoverageTargets: '70, 0, 0', failUnhealthy: false, failUnstable: false, lineCoverageTargets: '80, 0, 0', maxNumberOfBuilds: 0, methodCoverageTargets: '80, 0, 0', onlyStable: false, sourceEncoding: 'ASCII', zoomCoverageChart: false
-                    dependencyCheckAnalyzer datadir: '', hintsFile: '', includeCsvReports: false, includeHtmlReports: false, includeJsonReports: false, includeVulnReports: false, isAutoupdateDisabled: false, outdir: '', scanpath: 'target/*.xml', skipOnScmChange: false, skipOnUpstreamChange: false, suppressionFile: '', zipExtensions: ''
-                    findbugs canComputeNew: false, defaultEncoding: '', excludePattern: '', healthy: '', includePattern: '', pattern: '**/findbugsXml.xml', unHealthy: ''
+                    dependencyCheckPublisher pattern: '**/target/site/dependency-check-report.xml'
                 }
             }
         }
