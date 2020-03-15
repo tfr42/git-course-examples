@@ -1,6 +1,6 @@
 #!/usr/bin/env groovy
 
-def TEST = sh script: 'mvn help:evaluate -Dexpression=project.version -q -DforceStdout', returnStdout: true
+// def TEST = sh script: 'mvn help:evaluate -Dexpression=project.version -q -DforceStdout', returnStdout: true
 
 pipeline {
     agent any
