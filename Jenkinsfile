@@ -11,9 +11,9 @@ pipeline {
         maven 'maven-3.6'
         jdk 'jdk-8'
     }
-    options {
+//    options {
 //        timestamps()
-    }
+//    }
     environment {
         POM_ARTIFACT = sh script: 'mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout', returnStdout: true
 //        POM_VERSION = sh script: 'mvn help:evaluate -Dexpression=project.version -q -DforceStdout', returnStdout: true
