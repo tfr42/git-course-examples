@@ -16,7 +16,7 @@ pipeline {
     }
     environment {
         POM_ARTIFACT = sh script: 'mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout', returnStdout: true
-#        POM_VERSION = sh script: 'mvn help:evaluate -Dexpression=project.version -q -DforceStdout', returnStdout: true
+//        POM_VERSION = sh script: 'mvn help:evaluate -Dexpression=project.version -q -DforceStdout', returnStdout: true
         POM_VERSION = readMavenPom().getVersion()
         AWS_REGION = 'eu-west-1'
     }
