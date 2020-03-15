@@ -1,3 +1,7 @@
+#!/usr/bin/env groovy
+
+def TEST = sh script: 'mvn help:evaluate -Dexpression=project.version -q -DforceStdout', returnStdout: true
+
 pipeline {
     agent any
     triggers {
@@ -7,9 +11,13 @@ pipeline {
         maven 'maven-3.6'
         jdk 'jdk-8'
     }
+    options {
+        timestamps()
+    }
     environment {
-        pom_artifact = sh script: 'mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout', returnStdout: true
-        pom_version = sh script: 'mvn help:evaluate -Dexpression=project.version -q -DforceStdout', returnStdout: true
+        POM_ARTIFACT = sh script: 'mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout', returnStdout: true
+#        POM_VERSION = sh script: 'mvn help:evaluate -Dexpression=project.version -q -DforceStdout', returnStdout: true
+        POM_VERSION = readMavenPom().getVersion()
         AWS_REGION = 'eu-west-1'
     }
     stages {
@@ -23,11 +31,13 @@ pipeline {
                 sh 'java -version'
                 sh 'git --version'
                 sh 'docker --version'
+                echo '$env.TEST'
+                echo '$TEST'
             }
         }
         stage ('Build') {
             steps {
-               echo 'running Maven for project ${env.pom_artifact}:${env.pom_version}'
+               echo 'running Maven for project ${env.POM_ARTIFACT}:${env.POM_VERSION}'
                sh 'mvn -B -C -fae -s $JENKINS_HOME/settings.xml clean test'
             }
             post {
