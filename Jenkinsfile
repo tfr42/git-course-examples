@@ -1,13 +1,15 @@
 pipeline {
     agent any
-
+    triggers {
+            cron('H */5 * * *')
+    }
     tools {
         maven 'maven-3.6'
         jdk 'jdk-8'
     }
     environment {
-        pom_artifact = readMavenPom().getArtifactId()
-        pom_version = readMavenPom().getVersion()
+        pom_artifact = sh script: 'mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout', returnStdout: true
+        pom_version = sh script: 'mvn help:evaluate -Dexpression=project.version -q -DforceStdout', returnStdout: true
     }
     stages {
         stage ('Initialize') {
@@ -24,8 +26,7 @@ pipeline {
         }
         stage ('Build') {
             steps {
-               echo 'running Maven'
-               echo '${pom_version}'
+               echo 'running Maven for project ${pom_artifact}:${pom_version}'
                sh 'mvn -B -C -fae -s $JENKINS_HOME/settings.xml clean test'
             }
             post {
@@ -66,7 +67,6 @@ pipeline {
             steps {
                 echo 'Prepare release version...'
                 sh 'mvn -B clean release:prepare release:perform'
-                echo '${pom_version}'
                 echo 'Build docker image...'
                 sh 'docker build -t seminar/helloworld:latest --build-arg jarfile=./target/helloWorld-${pom_version}.jar .'
             }
