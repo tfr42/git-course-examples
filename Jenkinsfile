@@ -12,7 +12,7 @@ pipeline {
         jdk 'jdk-8'
     }
     options {
-        timestamps()
+//        timestamps()
     }
     environment {
         POM_ARTIFACT = sh script: 'mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout', returnStdout: true
@@ -37,7 +37,7 @@ pipeline {
         }
         stage ('Build') {
             steps {
-               echo 'running Maven for project ${env.POM_ARTIFACT}:${env.POM_VERSION}'
+               echo 'running Maven for project $env.POM_ARTIFACT:$env.POM_VERSION'
                sh 'mvn -B -C -fae -s $JENKINS_HOME/settings.xml clean test'
             }
             post {
