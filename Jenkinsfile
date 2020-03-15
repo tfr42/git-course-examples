@@ -10,6 +10,7 @@ pipeline {
     environment {
         pom_artifact = sh script: 'mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout', returnStdout: true
         pom_version = sh script: 'mvn help:evaluate -Dexpression=project.version -q -DforceStdout', returnStdout: true
+        AWS_REGION = 'eu-west-1'
     }
     stages {
         stage ('Initialize') {
@@ -26,7 +27,7 @@ pipeline {
         }
         stage ('Build') {
             steps {
-               echo 'running Maven for project ${pom_artifact}:${pom_version}'
+               echo 'running Maven for project ${env.pom_artifact}:${env.pom_version}'
                sh 'mvn -B -C -fae -s $JENKINS_HOME/settings.xml clean test'
             }
             post {
@@ -96,7 +97,13 @@ pipeline {
             agent { label 'aws' }
             steps {
                 echo 'Deploying to PROD...'
+                echo "${env.AWS_REGION}"
                 echo 'Running smoke tests...'
+            }
+            post {
+              always {
+                cleanWs()
+              }
             }
         }
     }
