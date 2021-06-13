@@ -22,7 +22,7 @@
 			<!--
 			<url>http://${NEXUS_PORT_8081_TCP_ADDR}:${NEXUS_PORT_8081_TCP_PORT}/nexus/content/groups/public/</url>
 			-->
-			<url>http://nexus:8081/nexus/content/groups/public/</url>
+			<url>http://nexus:8081/repository/maven-public/</url>
 		</mirror>
 	</mirrors>
 	<profiles>

@@ -1,32 +1,60 @@
-version: '2'
+version: '3'
 services:
   jenkins:
-    image: jenkins:latest
+    build:
+      context: ./jenkins
+      dockerfile: Dockerfile
     depends_on:
       - nexus
       - gitlab
     ports:
-       - 8082:8080
+      - 8082:8080
+      - 50000:50000
     volumes:
+#      - ~/.jenkins:/var/jenkins_home
       - ./jenkins/config/settings.xml:/var/jenkins_home/settings.xml
+      - /var/run/docker.sock:/var/run/docker.sock
     links:
       - nexus
       - gitlab
+    environment:
+      - BUILD_URL="http://localhost:8082"
   nexus:
-    image: sonatype/nexus:oss
-    volumes:
-      - ./nexus/volumes:/usr/local/tomcat/conf/server.xml
+    image: sonatype/nexus3
+#    volumes:
+#      - ~/Downloads/sonatype-work/nexus:/sonatype-work
     ports:
       - 8081:8081
 #    environment:
 #      - JAVA_OPTS=-verbose:gc -XX:+UseParallelGC -Xms1g -Xmx1g -XX:+PrintFlagsFinal
   gitlab:
-      image: gitlab/gitlab-ce
-#      volumes:
-#         - /srv/gitlab/config:/etc/gitlab
-#         - /srv/gitlab/data:/var/opt/gitlab
-#         - /srv/gitlab/logs:/var/log/gitlab
-      ports:
-        - "8083:80"
-        - "8443:443"
-        - "8022:22"
+# 13.11.4-ce.0 12.10.14-ce.0 11.11.8-ce.0
+    image: gitlab/gitlab-ce:13.11.4-ce.0
+    volumes:
+      - ./gitlab/config:/etc/gitlab
+      - ./gitlab/data:/var/opt/gitlab
+      - ./gitlab/logs:/var/log/gitlab
+    ports:
+      - "8083:80"
+      - "8443:443"
+      - "8022:22"
+    environment:
+      - GITLAB_OMNIBUS_CONFIG="external_url 'http://localhost:8083/';"
+#  sonar:
+#    image: sonarqube
+#    depends_on:
+#      - sonardb
+#    ports:
+#      - 9090:9090
+#      - 9092:9092
+#    environment:
+#      - SONARQUBE_JDBC_URL=jdbc:postgresql://sonardb:5432/sonar
+#      - SONARQUBE_JDBC_USERNAME=sonar
+#      - SONARQUBE_JDBC_PASSWORD=sonar
+#  sonardb:
+#    image: postgres
+#    environment:
+#      - POSTGRES_USER=sonar
+#      - POSTGRES_PASSWORD=sonar
+#    volumes:
+#      - ./postgres/data:/var/lib/postgresql/data
