@@ -1,10 +1,25 @@
+# Example Project for demonstration purposes only. Showing the integration of Maven with Jenkins, git and Nexus.
+
+## Branches
+
+| Branch | Description |
+| ------ | ---------- |
+| master | - | 
+| develop | simple Java Project | 
+| hotfix | - | 
+| docker-infrastructure | docker-compose file with settings for Nexus, Jenkins, gitlab |
+
+## How to work with git:
+
+```
 git help -a
 git help config
 
 git config user.name "Vorname Nachname"
 git config user.email "name@example.com"
 
-cd /Users/tf/git/git-course-examples
+mkdir git-course-examples
+cd git-course-examples
 git init
 
 echo 'Hello, world' > README
@@ -27,9 +42,9 @@ echo 'foo' > .project
 git status
 
 vi README
-# make a silly change
+# make some changes
 git add README 
-git commit -m 'silly change'
+git commit -m 'some silly changes'
 git log --oneline
 git revert HEAD
 git revert <commit>
@@ -104,6 +119,4 @@ git fetch
 git pull
 
 git push 
-
-
-
+```
