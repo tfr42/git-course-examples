@@ -31,7 +31,7 @@
       <filterQueue>false</filterQueue>
       <properties class="hudson.model.View$PropertyList"/>
     </hudson.model.AllView>
-    <com.smartcodeltd.jenkinsci.plugins.buildmonitor.BuildMonitorView plugin="build-monitor-plugin@1.10+build.201608030223">
+    <com.smartcodeltd.jenkinsci.plugins.buildmonitor.BuildMonitorView plugin="build-monitor-plugin@1.12+build.201809061734">
       <owner class="hudson" reference="../../.."/>
       <name>FastFeedback</name>
       <filterExecutors>false</filterExecutors>
@@ -41,7 +41,7 @@
         <comparator class="hudson.util.CaseInsensitiveComparator"/>
       </jobNames>
       <jobFilters>
-        <hudson.views.AllJobsFilter plugin="view-job-filters@1.27"/>
+        <hudson.views.AllJobsFilter plugin="view-job-filters@2.3"/>
         <hudson.views.StatusFilter>
           <statusFilter>true</statusFilter>
         </hudson.views.StatusFilter>
@@ -64,7 +64,7 @@
         <comparator class="hudson.util.CaseInsensitiveComparator" reference="../../../com.smartcodeltd.jenkinsci.plugins.buildmonitor.BuildMonitorView/jobNames/comparator"/>
       </jobNames>
       <jobFilters>
-        <hudson.views.JobStatusFilter plugin="view-job-filters@1.27">
+        <hudson.views.JobStatusFilter plugin="view-job-filters@2.3">
           <includeExcludeTypeString>includeMatched</includeExcludeTypeString>
           <unstable>true</unstable>
           <failed>true</failed>
@@ -94,10 +94,14 @@
         <comparator class="hudson.util.CaseInsensitiveComparator" reference="../../../com.smartcodeltd.jenkinsci.plugins.buildmonitor.BuildMonitorView/jobNames/comparator"/>
       </jobNames>
       <jobFilters>
-        <hudson.views.RegExJobFilter plugin="view-job-filters@1.27">
+        <hudson.views.RegExJobFilter plugin="view-job-filters@2.3">
           <includeExcludeTypeString>includeMatched</includeExcludeTypeString>
           <valueTypeString>NAME</valueTypeString>
           <regex>^spring.*</regex>
+          <matchName>true</matchName>
+          <matchFullName>false</matchFullName>
+          <matchDisplayName>false</matchDisplayName>
+          <matchFullDisplayName>false</matchFullDisplayName>
         </hudson.views.RegExJobFilter>
       </jobFilters>
       <columns>
@@ -143,7 +147,7 @@
         <comparator class="hudson.util.CaseInsensitiveComparator" reference="../../../com.smartcodeltd.jenkinsci.plugins.buildmonitor.BuildMonitorView/jobNames/comparator"/>
       </jobNames>
       <jobFilters>
-        <hudson.views.BuildDurationFilter plugin="view-job-filters@1.27">
+        <hudson.views.BuildDurationFilter plugin="view-job-filters@2.3">
           <includeExcludeTypeString>includeMatched</includeExcludeTypeString>
           <buildCountTypeString>AtLeastOne</buildCountTypeString>
           <amountTypeString>Builds</amountTypeString>
